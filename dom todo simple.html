@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM SIMPLE TODO CRUD</title>
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .container {
+            width: 700px;
+            margin: 50px auto;
+            border: 5px solid #333;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        h1,
+        #tambah {
+            text-align: center;
+        }
+
+
+        #inputs {
+            width: 35%;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+
+        li {
+            /* display: flex;
+            justify-content: space-evenly; */
+            padding: 10px;
+        }
+
+        label {
+            width: 20%;
+            font-weight: 600;
+        }
+
+        span>button {
+            float: right;
+            margin: 0 10px;
+        }
+
+        /* Edit Task */
+        ul li .input {
+            display: none;
+        }
+
+        ul li.editMode .input {
+            display: inline;
+            width: 25%;
+        }
+
+        ul li.editMode label {
+            display: none;
+        }
+
+        /* media */
+
+        @media screen and (max-width: 700px) {
+            body {
+                background-color: aliceblue;
+            }
+
+            .container {
+                width: 500px;
+                margin: 50px auto;
+                padding: 0px;
+            }
+        }
+
+
+        @media screen and (max-width: 500px) {
+            body {
+                background-color: bisque;
+            }
+
+            .container {
+                width: 400px;
+            }
+        }
+    </style>
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,700;1,300&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h1>TO DO LIST APP</h1>
+        <ul id="todo">
+            <li><label>Beli Makan Kucingku</label><input type="text" class="input"> <span><button type="button"
+                        id="remove">Delete</button></span><span><button type="button" id="edit">Edit</button></span>
+            </li>
+            <li><label>Ambil Paket</label><input type="text" class="input"> <span><button type="button"
+                        id="remove">Delete</button></span><span><button type="button" id="edit">Edit</button></span>
+            </li>
+        </ul>
+        <div id="tambah">
+            <input type="text" id="inputs" placeholder="whay r u gonna do this day ?">
+            <button tydiv"button" id="add" onclick="addNew()">Add</button>
+        </div>
+    </div>
+</body>
+
+<script>
+    // variabel
+    const todo = document.getElementById('todo')
+    const tambah = document.getElementById('tambah')
+    const inputs = document.getElementById('inputs')
+
+
+    // delete todo
+    todo.addEventListener("click", function (e) {
+        const buttonTgt = e.target
+        const tgt = e.target.parentNode.parentNode
+        if (buttonTgt.id == "remove") {
+            tgt.remove();
+        }
+    });
+
+    //edit todo
+    todo.addEventListener('click', (e) => {
+        // if user click button edit
+        if (e.target.id == "edit") {
+            const listItem = e.target.parentNode.parentNode
+            const editInput = listItem.querySelector('.input');
+            const label = listItem.querySelector("label");
+            // switch class
+            if (listItem.classList.contains("editMode")) {
+                label.innerText = editInput.value;
+            } else {
+                editInput.value = label.innerText;
+            }
+            // if enter
+            editInput.addEventListener("keyup", () => {
+                if (event.keyCode === 13) {
+                    listItem.querySelector('#edit').click()
+                }
+            })
+
+            listItem.classList.toggle("editMode");
+            // cursor go to input
+            editInput.focus()
+
+        }
+
+    })
+
+
+    //function on click
+    let addNew = function (e) {
+        const labelTag = document.createElement('label')
+        const newTodo = document.createElement('li')
+        // insert elemet to label tag
+        labelTag.append(inputs.value)
+        newTodo.append(labelTag)
+        newTodo.innerHTML +=
+            "<input type=\"text\" class=\"input\"> <span><button type=\"button\" id=\"remove\">Delete</button></span><span><button type=\"button\" id=\"edit\">Edit</button></span>"
+        todo.append(newTodo)
+        inputs.value = ""
+    }
+
+//if user enter to input text it will trigger add new function
+    inputs.addEventListener('keyup', (e) => {
+        if (event.keyCode === 13) {
+            document.querySelector('#add').click()
+        }
+    })
+
+
+
+    // let editTask = function (e) {
+    //     const listItem = this.parentNode.parentNode
+    //     const  tgt = e.target.parentNode.parentNode
+    //     const  editInput = listItem.querySelector('input[type=text]');
+    //     const  label = listItem.querySelector("label");
+    //     //If class of the parent is .editmode
+    //     if (listItem.classList.contains("editMode")) {
+    //         label.innerText = editInput.value;
+    //     } else {
+    //         editInput.value = label.innerText;
+    //     }
+    //     tgt.classList.toggle("editMode");
+    // }
+
+    // editButton.onclick = editTask;
+</script>
+
+</html>
