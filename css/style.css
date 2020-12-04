@@ -1,0 +1,80 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    width: 700px;
+    margin: 50px auto;
+    border: 5px solid #333;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+h1,
+#tambah {
+    text-align: center;
+}
+
+
+#inputs {
+    width: 35%;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+
+li {
+    /* display: flex;
+    justify-content: space-evenly; */
+    padding: 10px;
+}
+
+label {
+    width: 20%;
+    font-weight: 600;
+}
+
+span>button {
+    float: right;
+    margin: 0 10px;
+}
+
+/* Edit Task */
+ul li .input {
+    display: none;
+}
+
+ul li.editMode .input {
+    display: inline;
+    width: 25%;
+}
+
+ul li.editMode label {
+    display: none;
+}
+
+/* media */
+
+@media screen and (max-width: 700px) {
+    body {
+        background-color: aliceblue;
+    }
+
+    .container {
+        width: 500px;
+        margin: 50px auto;
+        padding: 0px;
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    body {
+        background-color: bisque;
+    }
+
+    .container {
+        width: 400px;
+    }
+}
